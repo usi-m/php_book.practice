@@ -14,16 +14,23 @@
       $dbh = new PDO($dsn, $user);
       $dbh -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-      $sql ='SELECT name FROM mst_product WHERE code=?';
+      $sql ='SELECT name,picture FROM mst_product WHERE code=?';
       $stmt =$dbh ->prepare($sql);
       $data[] = $pro_code;
       $stmt -> execute($data);
 
       $rec =$stmt -> fetch(PDO::FETCH_ASSOC);
       $pro_name = $rec['name'];
+      $pro_picture_name = $rec['picture'];
 
       $dbh = null;
 
+      if ($pro_picture_name ==''){
+        $disp_picture='';
+      }
+      else {
+        $disp_picture='<img src="./picture/'.$pro_picture_name.'">';
+      }
     }
     catch (Exception $e){
       print 'ただいま障害により大変ご迷惑をお掛けしております。';
@@ -38,14 +45,17 @@
   商品名 <br />
   <?php print $pro_name; ?>
   <br />
+  <?php print $disp_picture; ?><br />
+  <br />
   この商品を削除してよろしいでしょうか？ <br />
   <br />
   <form method="post" action="pro_delete_done.php">
-  <input type="hidden" name="code" value="<?php print $pro_code; ?>">
+    <input type="hidden" name="code" value="<?php print $pro_code; ?>">
+    <input type="hidden" name="picture_name" value="<?php print $pro_picture_name; ?>">
 
-  <input type="button" onclick="history.back()" value="戻る" />
-  <input type="submit" value="OK" />
-</form>
+    <input type="button" onclick="history.back()" value="戻る" />
+    <input type="submit" value="OK" />
+  </form>
 
 </body>
 </html>

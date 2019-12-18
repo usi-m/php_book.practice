@@ -34,9 +34,10 @@
       exit();
     }
   ?>
-   お名前を <?php print $staff_name; ?>  さんに修正しました。 <br />
-   <br />
-   <a href = "staff_list.php"> 戻る </a>
+
+  お名前を <?php print $staff_name; ?>  さんに修正しました。 <br />
+  <br />
+  <a href = "staff_list.php"> 戻る </a>
 
 </body>
 </html>

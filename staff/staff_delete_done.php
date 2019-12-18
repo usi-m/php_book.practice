@@ -27,9 +27,10 @@
       exit();
     }
   ?>
-   削除しました。<br />
-   <br />
-   <a href = "staff_list.php"> 戻る </a>
+
+  削除しました。<br />
+  <br />
+  <a href = "staff_list.php"> 戻る </a>
 
 </body>
 </html>

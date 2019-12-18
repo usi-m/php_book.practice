@@ -21,16 +21,16 @@
       print '商品一覧<br /><br />';
 
       print '<form method="post" action="pro_branch.php">';
-        while(true){
-          $rec = $stmt -> fetch(PDO::FETCH_ASSOC);
-          if($rec == false){
-            break;
-          }
-          print '<input type="radio" name="procode" value="'.$rec['code'].'"> ';
-          print $rec['name'].'---';
-          print $rec['price'].'円';
-          print '<br />';
+      while(true){
+        $rec = $stmt -> fetch(PDO::FETCH_ASSOC);
+        if($rec == false){
+          break;
         }
+        print '<input type="radio" name="procode" value="'.$rec['code'].'"> ';
+        print $rec['name'].'---';
+        print $rec['price'].'円';
+        print '<br />';
+      }
       print '<input type="submit" name="add" value="追加">';
       print '<input type="submit" name="disp" value="詳細">';
       print '<input type="submit" name="edit" value="修正">';

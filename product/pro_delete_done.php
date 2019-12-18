@@ -8,6 +8,7 @@
   <?php
     try {
       $pro_code = $_POST['code'];
+      $pro_picture_name = $_POST['picture_name'];
 
       $dsn ='mysql:dbname=shop;host=localhost;charset=utf8';
       $user = 'root';
@@ -20,15 +21,20 @@
       $stmt -> execute($data);
 
       $dbh = null;
+
+      if ($pro_picture_name !=''){
+        unlink('./picture/'.$pro_picture_name);
+      }
     }
     catch (Exception $e) {
       print 'ただいま障害により大変ご迷惑をお掛けしております。';
       exit();
     }
   ?>
-   削除しました。<br />
-   <br />
-   <a href = "pro_list.php"> 戻る </a>
+
+  削除しました。<br />
+  <br />
+  <a href = "pro_list.php"> 戻る </a>
 
 </body>
 </html>
