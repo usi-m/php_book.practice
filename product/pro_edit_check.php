@@ -5,10 +5,12 @@
 <title>ろくまる農園</title>
 </head>
 <body>
-  <?php
+<?php
+  $pro_code=$_POST['code'];
   $pro_name=$_POST['name'];
   $pro_price=$_POST['price'];
 
+  $pro_code=htmlspecialchars($pro_code, ENT_QUOTES,'UTF-8');
   $pro_name=htmlspecialchars($pro_name, ENT_QUOTES,'UTF-8');
   $pro_price=htmlspecialchars($pro_price, ENT_QUOTES,'UTF-8');
 
@@ -36,8 +38,9 @@
     print '</form>';
   }
   else {
-    print '上記の商品を追加します。<br />';
-    print '<form method="post" action="pro_add_done.php">';
+    print '上記のように変更します。<br />';
+    print '<form method="post" action="pro_edit_done.php">';
+    print '<input type="hidden" name="code" value="'.$pro_code.'" />';
     print '<input type="hidden" name="name" value="'.$pro_name.'" />';
     print '<input type="hidden" name="price" value="'.$pro_price.'" />';
     print '<br />';
@@ -45,6 +48,6 @@
     print '<input type="submit" value="OK" />';
     print '</form>';
   }
- ?>
+?>
 </body>
 </html>
