@@ -1,4 +1,12 @@
 <?php
+  session_start();
+  session_regenerate_id(true);
+  if(isset($_SESSION['login'])==false){
+    print 'ログインされておりません。';
+    print '<a href = "../staff_login/staff_login.html">ログイン画面へ</a>';
+    exit();
+  }
+
   if(isset($_POST['disp'])==true){
     if(isset($_POST['procode'])==false){
         header('Location:pro_ng.php');

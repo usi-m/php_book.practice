@@ -1,3 +1,17 @@
+<?php
+  session_start();
+  session_regenerate_id(true);
+  if(isset($_SESSION['login'])==false){
+    print 'ログインされておりません。';
+    print '<a href = "../staff_login/staff_login.html">ログイン画面へ</a>';
+    exit();
+  }
+  else{
+    print $_SESSION['staff_name'];
+    print 'さんログイン中 <br />';
+    print '<br />';
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +21,14 @@
 <body>
   <?php
     try {
-      $pro_code = $_POST['code'];
-      $pro_name = $_POST['name'];
-      $pro_price = $_POST['price'];
-      $pro_picture_name_old = $_POST['picture_name_old'];
-      $pro_picture_name = $_POST['picture_name'];
+      require_once('../common/common.php');
+
+      $post = sanitize($_POST);
+      $pro_code = $post['code'];
+      $pro_name = $post['name'];
+      $pro_price = $post['price'];
+      $pro_picture_name_old = $post['picture_name_old'];
+      $pro_picture_name = $post['picture_name'];
 
       $pro_code=htmlspecialchars($pro_code,ENT_QUOTES,'UTF-8');
       $pro_name=htmlspecialchars($pro_name, ENT_QUOTES,'UTF-8');
