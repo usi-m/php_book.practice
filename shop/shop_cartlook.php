@@ -97,5 +97,7 @@
     <a href="clear_cart.php">カートを空にする</a><br />
     <a href ="shop_list.php">商品一覧に戻る</a>
   </form>
+  <br />
+  <a href="shop_form.html">ご購入手続きへ進む</a><br />
 </body>
 </html>
