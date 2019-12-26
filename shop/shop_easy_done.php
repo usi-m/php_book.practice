@@ -1,6 +1,12 @@
 <?php
   session_start();
   session_regenerate_id(true);
+
+  if(isset($_SESSION['member_login'])==false){
+    print 'ログインされてません。';
+    print '<a href = "shop_list.php">商品一覧へ</a>';
+    exit();
+  }
  ?>
 <!DOCTYPE html>
 <html>
@@ -21,10 +27,6 @@
       $postal2=$post['postal2'];
       $address=$post['address'];
       $tel=$post['tel'];
-      $order=$post['order'];
-      $pass=$post['pass'];
-      $gender=$post['gender'];
-      $birth=$post['birth'];
 
       print $customer_name.'様<br />';
       print 'ご購入ありがとうございました！！<br /><br />';
@@ -72,33 +74,8 @@
       $stmt = $dbh->prepare($sql);
       $stmt -> execute();
 
-      $lastmembercode=0;
-      if($order=='registration'){
-        $sql = 'INSERT INTO dat_member(password, name,email,postal1,postal2,address,tel,gender,born) VALUES (?,?,?,?,?,?,?,?,?)';
-        $stmt =$dbh->prepare($sql);
-        $data = array();
-        $data[] = md5($pass);
-        $data[] = $customer_name;
-        $data[] = $email;
-        $data[] = $postal1;
-        $data[] = $postal2;
-        $data[] = $address;
-        $data[] = $tel;
-        if($gender == 'men'){
-          $data[] = 1;
-        }
-        else {
-          $data[] = 2;
-        }
-        $data[] = $birth;
-        $stmt -> execute($data);
+      $lastmembercode=$_SESSION['member_code'];
 
-        $sql = 'SELECT LAST_INSERT_ID()';
-        $stmt = $dbh->prepare($sql);
-        $stmt-> execute();
-        $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-        $lastmembercode = $rec['LAST_INSERT_ID()'];
-      }
       $sql = 'INSERT INTO dat_sales (code_member,name,email,postal1,postal2,address,tel) VALUES (?,?,?,?,?,?,?)';
       $stmt = $dbh->prepare($sql);
       $data = array();
@@ -133,12 +110,8 @@
 
       $dbh = null;
 
-      if($order=='registration'){
-        print '会員登録完了しました。<br />';
-        print '次回からメールアドレスとパスワードでログインしてください。<br />';
-        print 'ご注文が簡単にできるようになります。<br />';
-        print '<br />';
-      }
+      print '<br />';
+      print '<a href = "shop_list.php">商品画面へ</a>';
 
       // $honbun.="送料は無料です。\n";
       // $honbun.="--------------\n";
@@ -184,7 +157,6 @@
       exit();
     }
   ?>
-  <br />
-  <a href = "shop_list.php">商品画面へ</a>
+
 </body>
 </html>
